@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: c890a54324ed64c1c9e5286114938d65
+timeCreated: 1493231658
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: forest_ground_00_LL
+    21300002: forest_ground_01_LL
+    21300004: forest_ground_02_LL
+    21300006: forest_ground_03_LL
+    21300008: forest_ground_04_LL
+    21300010: forest_ground_05_LL
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: forest_ground_00_LL
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 432
+        width: 400
+        height: 79
+      alignment: 9
+      pivot: {x: 0.5, y: 0.8670886}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_ground_01_LL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 420
+        width: 400
+        height: 91
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75274724}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_ground_02_LL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 149
+        width: 400
+        height: 88
+      alignment: 9
+      pivot: {x: 0.5, y: 0.77840906}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_ground_03_LL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 239
+        width: 400
+        height: 88
+      alignment: 9
+      pivot: {x: 0.5, y: 0.77840906}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_ground_04_LL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 329
+        width: 400
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7696629}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_ground_05_LL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 61
+        width: 400
+        height: 86
+      alignment: 9
+      pivot: {x: 0.5, y: 0.79651165}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
