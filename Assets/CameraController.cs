@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour {
 	public float toleratedXOffset;
 	private Vector3 offset;
 	private Vector3 originalOffset;
+	public float originalY;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,6 +29,7 @@ public class CameraController : MonoBehaviour {
 			} else {
 				transform.position = player.transform.position + new Vector3 (toleratedXOffset, originalOffset.y, originalOffset.z);
 			}
+			transform.position = new Vector3 (transform.position.x,originalY,transform.position.z);
 		}
 	}
 }

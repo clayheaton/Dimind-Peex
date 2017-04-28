@@ -40,6 +40,7 @@ public class LevelManager : MonoBehaviour {
 		ll.levelPart     = "grounds";
 		ll.yPosition     = 0.65f;
 		ll.sortLayerName = "Ground";
+		ll.needsCollider = true;
 		ll.SetupLevelLayer();
 		layers.Add(go);
 
@@ -51,6 +52,7 @@ public class LevelManager : MonoBehaviour {
 		ll2.levelPart     = "backgrounds";
 		ll2.yPosition     = 4.5f;
 		ll2.sortLayerName = "BackgroundProximate";
+		ll2.needsCollider = false;
 		ll2.SetupLevelLayer();
 		layers.Add(go2);
 	}
@@ -69,6 +71,7 @@ public class LevelLayer : MonoBehaviour {
 	public string levelPart;
 	public float yPosition;
 	public string sortLayerName;
+	public bool needsCollider;
 	private List<GameObject> tiles;
 	private List<GameObject> tilesLeftLow;
 	private List<GameObject> tilesLeftHigh;
@@ -106,7 +109,11 @@ public class LevelLayer : MonoBehaviour {
 			sr.sortingLayerName = sortLayerName;
 
 			// Add a Polygon 2d Collider. Do we need this?
-			tile.AddComponent<PolygonCollider2D>();
+			if (needsCollider){
+				BoxCollider2D bc = tile.AddComponent<BoxCollider2D>();
+				bc.size = new Vector2(4,0.80f);
+				bc.offset = new Vector2(0,-0.30f);
+			}
 
 			string[] nameParts = s.name.Split (new char[]{'_'});
 			string sides = nameParts[nameParts.Length - 1];
