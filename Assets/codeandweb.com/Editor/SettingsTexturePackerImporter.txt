@@ -2,14 +2,17 @@ version: 2
 importPivots: 1
 tpsheetFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
+- Assets/Resources/grounds/forest_ground.tpsheet
 - Assets/Resources/level_01/backgrounds/forest_background.tpsheet
 - Assets/Resources/level_01/grounds/forest_ground.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
+- Assets/Resources/grounds/forest_ground.png
 - Assets/Resources/level_01/backgrounds/forest_background.png
 - Assets/Resources/level_01/grounds/forest_ground.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
 - 
 - 
 enableDebugOutput: 0

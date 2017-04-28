@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-	public float speed = 8;
+	public float maxSpeed;
 	public Vector2 movement;
 	private Rigidbody2D rb2d;
 	public Vector2 jump;
 	public float jumpForce = 2.0f;
-	public float moveForce = 3650f;
+	public float moveForce = 365f;
 	public bool isGrounded = true;
 	private bool doJump = false;
 
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnCollisionStay2D(Collision2D collision){
-		Debug.Log(collision);
+		// Debug.Log(collision);
 		isGrounded = true;
 	}
 
@@ -44,16 +44,14 @@ public class PlayerController : MonoBehaviour {
 		// movement             = new Vector2 (moveHorizontal, moveVertical);
 		// transform.position   = new Vector3 (transform.position.x + movement.x * speed, transform.position.y, transform.position.z);
 
-
 		// If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
-		if(moveHorizontal * rb2d.velocity.x < speed)
-			// ... add a force to the player.
+		if(moveHorizontal * rb2d.velocity.x < maxSpeed)
 			rb2d.AddForce(Vector2.right * moveHorizontal * moveForce);
 
 		// If the player's horizontal velocity is greater than the maxSpeed...
-		if(Mathf.Abs(rb2d.velocity.x) > speed)
+		if(Mathf.Abs(rb2d.velocity.x) > maxSpeed)
 			// ... set the player's velocity to the maxSpeed in the x axis.
-			rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * speed, rb2d.velocity.y);
+			rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * maxSpeed, rb2d.velocity.y);
 
 		if (doJump){
 			doJump = false;
