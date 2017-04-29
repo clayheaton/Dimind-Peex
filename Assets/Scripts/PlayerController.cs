@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	private Rigidbody2D rb2d;
-	public float maxSpeed = 5f;
+	public float maxSpeed;
 	private Transform groundCheck;
 	public float jumpForce = 1000f;
 	public float moveForce = 365f;
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 		// If the player is changing direction (h has a different sign to velocity.x) or hasn't reached maxSpeed yet...
 		if(h * rb2d.velocity.x < maxSpeed)
 			// ... add a force to the player.
+			//Debug.Log("here");
 			rb2d.AddForce(Vector2.right * h * moveForce);
 
 		// If the player's horizontal velocity is greater than the maxSpeed...
@@ -45,7 +46,6 @@ public class PlayerController : MonoBehaviour {
 			rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * maxSpeed, rb2d.velocity.y);
 
 		// If the player should jump...
-		Debug.Log(rb2d.velocity);
 		if(jump)
 		{
 			// Add a vertical force to the player.
