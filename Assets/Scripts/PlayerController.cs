@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb2d     = GetComponent<Rigidbody2D> ();
+		// GetComponent<CircleCollider2D>() = 0.0001f;
 		movement = new Vector2 (0, 0);
 		jump     = new Vector3 (0.0f, 2.0f);
 	}

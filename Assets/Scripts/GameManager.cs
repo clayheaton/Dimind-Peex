@@ -10,12 +10,15 @@ public class GameManager : MonoBehaviour {
 	private string level = "level_01";
 	// Use this for initialization
 	void Awake () {
+		player = Instantiate(Resources.Load("player") as GameObject);
+		gameCamera = Instantiate(Resources.Load("cam",typeof(Camera)) as Camera);
 		//Instantiate(player);
 		//Instantiate(gameCamera);
 		CameraController cc = gameCamera.GetComponent<CameraController>();
 		cc.player   = player;
 		levelScript = GetComponent<LevelManager>();
 		levelScript.player = player;
+		levelScript.gameCamera = gameCamera;
 		InitGame();
 	}
 

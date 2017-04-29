@@ -32,6 +32,16 @@ public class LevelManager : MonoBehaviour {
 
 		layers = new List<GameObject>();
 
+		// Create a ground collider that moves with the camera
+		GameObject groundCollider = new GameObject("Ground Collider");
+		groundCollider.transform.position = new Vector2(0.0f,1.0f);
+
+		BoxCollider2D groundBox = groundCollider.AddComponent<BoxCollider2D>();
+		groundBox.transform.parent = groundCollider.transform;
+		groundBox.size = new Vector2(100000f,1.0f);
+		groundBox.offset = new Vector2(0,-0.8f);
+		
+
 		// Ground Layer
 		GameObject go    = new GameObject("Ground Layer");
 		LevelLayer ll    = go.AddComponent<LevelLayer>();
@@ -108,11 +118,21 @@ public class LevelLayer : MonoBehaviour {
 			sr.sprite = s;
 			sr.sortingLayerName = sortLayerName;
 
+			// Standardize ground tile SpriteRenderer sizes
+			// so that the Box Colliders are not different sizes
+			// when they are added. This makes movement along the ground smooth.
+			if (levelPart == "grounds"){
+				sr.size = new Vector2(4.0f,0.8f);
+				Debug.Log("grounds: " + sr.size.ToString());
+			} else {
+				Debug.Log(levelPart + ": " + sr.size.ToString());
+			}
+
 			// Add a Polygon 2d Collider. Do we need this?
 			if (needsCollider){
-				BoxCollider2D bc = tile.AddComponent<BoxCollider2D>();
-				bc.size = new Vector2(4,0.80f);
-				bc.offset = new Vector2(0,-0.30f);
+				// BoxCollider2D bc = tile.AddComponent<BoxCollider2D>();
+				// bc.size = new Vector2(4.00f,0.70f);
+				// bc.offset = new Vector2(0.0f,-0.3f);
 			}
 
 			string[] nameParts = s.name.Split (new char[]{'_'});
@@ -157,7 +177,7 @@ public class LevelLayer : MonoBehaviour {
 		// Random.Range is inclusive?  Hmm...
 		int tn       = Random.Range(0,tiles.Count - 1);
 		GameObject t = tiles[tn];
-		tileWidth    = t.GetComponent<Renderer>().bounds.size.x - 0.02f;
+		tileWidth    = t.GetComponent<Renderer>().bounds.size.x - 0.01f;
 
 		// Populate an array with the numbers of the tiles
 		for (int i = 0; i < levelSize; i++){
