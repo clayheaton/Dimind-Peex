@@ -5,13 +5,16 @@ tpsheetFileNames:
 - Assets/Resources/grounds/forest_ground.tpsheet
 - Assets/Resources/level_01/backgrounds/forest_background.tpsheet
 - Assets/Resources/level_01/grounds/forest_ground.tpsheet
+- Assets/Resources/level_01/skies/forest_clouds.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
 - Assets/Resources/grounds/forest_ground.png
 - Assets/Resources/level_01/backgrounds/forest_background.png
 - Assets/Resources/level_01/grounds/forest_ground.png
+- Assets/Resources/level_01/skies/forest_clouds.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
 - 
 - 
 - 

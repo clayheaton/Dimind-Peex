@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Allows us to use [Serializable] for editor
 using Random = UnityEngine.Random;
 
 
@@ -12,6 +11,7 @@ public class TileData : MonoBehaviour
 	public SideCode LeftCode;
 	public SideCode RightCode;
 	public int tileNumber;
+	public List<GameObject> attachedObjects = new List<GameObject>();
 }
 
 public class CameraFrameData : MonoBehaviour
@@ -41,8 +41,6 @@ public class LevelManager : MonoBehaviour {
 		groundBox.transform.parent = groundCollider.transform;
 		groundBox.size = new Vector2(100000f,1.0f);
 		groundBox.offset = new Vector2(0,-0.8f);
-		
-		
 
 		// Ground Layer
 		GameObject go    = new GameObject("Ground Layer");
@@ -57,6 +55,7 @@ public class LevelManager : MonoBehaviour {
 		layers.Add(go);
 
 		// Background Layer
+		// The proximate background layer will spawn clouds, too
 		GameObject go2    = new GameObject("Background Layer");
 		LevelLayer ll2    = go.AddComponent<LevelLayer>();
 		ll2.gameCamera    = gameCamera;
@@ -97,6 +96,7 @@ public class LevelLayer : MonoBehaviour {
 	private static int levelSize = 100;
 	private int[] levelLayout = new int[levelSize];
 	private static int tileBuffer  = 4;
+	private List<GameObject> attachedObjects;
 
 	public void SetupLevelLayer()
 	{
@@ -109,32 +109,15 @@ public class LevelLayer : MonoBehaviour {
 		activeTiles    = new Dictionary<int,GameObject>();
 
 		string resource_path   = levelNumber + "/" + levelPart;
-		// Debug.Log(resource_path);
 		Object[] groundSprites = Resources.LoadAll(resource_path, typeof(Sprite));
 
-		// Create the ground sprites
+		// Create the sprites
 		for (int i = 0; i < groundSprites.Length; i++){
 			Sprite s = groundSprites[i] as Sprite;
 			GameObject tile = new GameObject(s.name);
 			SpriteRenderer sr = tile.AddComponent<SpriteRenderer>();
 			sr.sprite = s;
 			sr.sortingLayerName = sortLayerName;
-
-			// Standardize ground tile SpriteRenderer sizes
-			// so that the Box Colliders are not different sizes
-			// when they are added. This makes movement along the ground smooth.
-			if (levelPart == "grounds"){
-				sr.size = new Vector2(4.0f,0.8f);
-				// Debug.Log("grounds: " + sr.size.ToString());
-			}
-
-			// TODO: Remove
-			// Add a Polygon 2d Collider. Do we need this?
-			if (needsCollider){
-				// BoxCollider2D bc = tile.AddComponent<BoxCollider2D>();
-				// bc.size = new Vector2(4.00f,0.70f);
-				// bc.offset = new Vector2(0.0f,-0.3f);
-			}
 
 			string[] nameParts = s.name.Split (new char[]{'_'});
 			string sides = nameParts[nameParts.Length - 1];
@@ -186,8 +169,6 @@ public class LevelLayer : MonoBehaviour {
 			if (i == 0){
 				int r          = (int)Random.Range(0,numTiles);
 				levelLayout[i] = r;
-				SideCode l     = tileLookup[r].GetComponent<TileData>().LeftCode;
-				SideCode rt    = tileLookup[r].GetComponent<TileData>().RightCode;
 			} else if(i == levelSize - 1){
 				// The last tile should match the first tile and the tile before it
 				GameObject previousTile = tileLookup[levelLayout[i-1]];
@@ -237,42 +218,6 @@ public class LevelLayer : MonoBehaviour {
 				}
 			}
 		}
-
-		// Place the initial tiles
-		int playFrame = 0;
-
-		for (int i = playFrame - tileBuffer; i < playFrame + tileBuffer; i++){
-
-			// The level starts at 0 index position and goes to levelSize. 
-			// Because it wraps around, we have to calculate a pseudo index position 
-			// for the "negative" values.
-			int ii = i;
-			if (i < 0 ){
-				ii = levelSize + (i % levelSize);
-			} else if (i >= levelSize){
-				ii = i % levelSize;
-			}
-
-			int tilenumber      = levelLayout[ii];
-			GameObject thistile = tileLookup[tilenumber];
-			GameObject tilecopy = Instantiate(thistile);
-			tilecopy.name       = levelNumber + " " + levelPart + " tile " + ii.ToString();
-			CameraFrameData frameData = tilecopy.AddComponent<CameraFrameData>();
-
-			// Use the play frame data to remove objects that aren't in the viewport
-			frameData.cameraFrame = ii;
-
-			// For finding the appropriate position, we have to remove the array offset.
-			int actualpos = i;
-			tilecopy.transform.position = new Vector3(actualpos*tileWidth,
-			                                          tilecopy.transform.position.y,
-													  tilecopy.transform.position.z);
-			// Show the copies that we will use for tiling
-			tilecopy.SetActive(true);
-
-			// Keep a dicionary of active tiles
-			activeTiles.Add(frameData.cameraFrame,tilecopy);
-		}
 	}
 
 	void Update(){
@@ -321,6 +266,21 @@ public class LevelLayer : MonoBehaviour {
 														  tilecopy.transform.position.z);
 				tilecopy.SetActive(true);
 
+				// foreach(GameObject attachedObject in tilecopy.GetComponent<TileData>().attachedObjects){
+				// 	attachedObject.transform.position = new Vector2(tilecopy.transform.position.x,attachedObject.transform.position.y);
+				// 	attachedObject.SetActive(true);
+				// }
+
+				// If we are the Proximate Background level, attempt to attach clouds.
+				if (sortLayerName == "BackgroundProximate"){
+					if (Random.Range(0,100) > 60){
+						GameObject skyObjectPrefab = Resources.Load("SkyObject") as GameObject;
+						GameObject skyObject = Instantiate(skyObjectPrefab);
+						skyObject.transform.position = new Vector2 (tilecopy.transform.position.x,skyObject.transform.position.y);
+						skyObject.SetActive(true);
+						tilecopy.GetComponent<TileData>().attachedObjects.Add(skyObject);
+					}
+				}
 				// Keep a dicionary of active tiles
 				activeTiles.Add(neededFrameNumber,tilecopy);
 			}
@@ -343,6 +303,14 @@ public class LevelLayer : MonoBehaviour {
 		// remove it from the activeTiles List, then destroy the tile.
 		foreach (int key in keysToRemove){
 			GameObject toDestroy = activeTiles[key];
+
+			// Deactivate the sky objects.
+			foreach(GameObject attachedObject in toDestroy.GetComponent<TileData>().attachedObjects){
+				attachedObject.transform.position = new Vector2(toDestroy.transform.position.x,attachedObject.transform.position.y);
+				attachedObject.SetActive(false);
+				Destroy(attachedObject);
+			}
+
 			activeTiles.Remove(key);
 			Destroy(toDestroy);
 		}
