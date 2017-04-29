@@ -35,11 +35,13 @@ public class LevelManager : MonoBehaviour {
 		// Create a ground collider that moves with the camera
 		GameObject groundCollider = new GameObject("Ground Collider");
 		groundCollider.transform.position = new Vector2(0.0f,1.0f);
+		groundCollider.layer = LayerMask.NameToLayer("Ground");
 
 		BoxCollider2D groundBox = groundCollider.AddComponent<BoxCollider2D>();
 		groundBox.transform.parent = groundCollider.transform;
 		groundBox.size = new Vector2(100000f,1.0f);
 		groundBox.offset = new Vector2(0,-0.8f);
+		
 		
 
 		// Ground Layer
@@ -107,7 +109,7 @@ public class LevelLayer : MonoBehaviour {
 		activeTiles    = new Dictionary<int,GameObject>();
 
 		string resource_path   = levelNumber + "/" + levelPart;
-		Debug.Log(resource_path);
+		// Debug.Log(resource_path);
 		Object[] groundSprites = Resources.LoadAll(resource_path, typeof(Sprite));
 
 		// Create the ground sprites
@@ -123,11 +125,10 @@ public class LevelLayer : MonoBehaviour {
 			// when they are added. This makes movement along the ground smooth.
 			if (levelPart == "grounds"){
 				sr.size = new Vector2(4.0f,0.8f);
-				Debug.Log("grounds: " + sr.size.ToString());
-			} else {
-				Debug.Log(levelPart + ": " + sr.size.ToString());
+				// Debug.Log("grounds: " + sr.size.ToString());
 			}
 
+			// TODO: Remove
 			// Add a Polygon 2d Collider. Do we need this?
 			if (needsCollider){
 				// BoxCollider2D bc = tile.AddComponent<BoxCollider2D>();
