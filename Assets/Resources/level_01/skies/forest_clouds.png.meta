@@ -84,8 +84,8 @@ TextureImporter:
       name: forest_cloud_01
       rect:
         serializedVersion: 2
-        x: 1
-        y: 188
+        x: 277
+        y: 399
         width: 298
         height: 102
       alignment: 9
@@ -97,8 +97,8 @@ TextureImporter:
       name: forest_cloud_02
       rect:
         serializedVersion: 2
-        x: 513
-        y: 260
+        x: 1
+        y: 34
         width: 292
         height: 124
       alignment: 9
@@ -123,12 +123,12 @@ TextureImporter:
       name: forest_cloud_04
       rect:
         serializedVersion: 2
-        x: 469
-        y: 375
-        width: 297
-        height: 136
+        x: 1
+        y: 153
+        width: 290
+        height: 141
       alignment: 9
-      pivot: {x: 0.4983165, y: 0.5330882}
+      pivot: {x: 0.5103448, y: 0.5141844}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: -1
@@ -136,8 +136,8 @@ TextureImporter:
       name: forest_cloud_05
       rect:
         serializedVersion: 2
-        x: 1
-        y: 88
+        x: 573
+        y: 413
         width: 294
         height: 98
       alignment: 9
