@@ -96,7 +96,7 @@ public class LevelLayer : MonoBehaviour {
 	private static int levelSize = 100;
 	private int[] levelLayout = new int[levelSize];
 	private static int tileBuffer  = 4;
-	private List<GameObject> attachedObjects;
+	private List<GameObject> objectsNoLongerNeeded;
 
 	public void SetupLevelLayer()
 	{
@@ -107,6 +107,7 @@ public class LevelLayer : MonoBehaviour {
 		tilesRightHigh = new List<GameObject>();
 		tileLookup     = new Dictionary<int,GameObject>();
 		activeTiles    = new Dictionary<int,GameObject>();
+		objectsNoLongerNeeded = new List<GameObject>();
 
 		string resource_path   = levelNumber + "/" + levelPart;
 		Object[] groundSprites = Resources.LoadAll(resource_path, typeof(Sprite));
@@ -305,15 +306,28 @@ public class LevelLayer : MonoBehaviour {
 			GameObject toDestroy = activeTiles[key];
 
 			// Deactivate the sky objects.
+			// Hand sky objects to destroy over to a level-scoped list that destroys them when they are 6+ units from the player
 			foreach(GameObject attachedObject in toDestroy.GetComponent<TileData>().attachedObjects){
-				attachedObject.transform.position = new Vector2(toDestroy.transform.position.x,attachedObject.transform.position.y);
-				attachedObject.SetActive(false);
-				Destroy(attachedObject);
+				objectsNoLongerNeeded.Add(attachedObject);
 			}
+
+			toDestroy.GetComponent<TileData>().attachedObjects.Clear();
 
 			activeTiles.Remove(key);
 			Destroy(toDestroy);
 		}
+
+		// Loop through all objects in objectsNoLongerNeeded and if they are
+		// far enough away from the player, destroy them.
+		foreach(GameObject go in objectsNoLongerNeeded){
+				GameObject p = GameObject.FindWithTag("Player");
+				if (p != null && go != null){
+					float dist = Vector2.Distance(p.transform.position,go.transform.position);
+					if (Mathf.Abs(dist) > 10.0f){
+						Destroy(go);
+					}
+				}
+			}
 
 	}
 }
