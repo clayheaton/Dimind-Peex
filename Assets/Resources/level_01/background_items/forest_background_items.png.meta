@@ -1,0 +1,292 @@
+fileFormatVersion: 2
+guid: 456df6930ea674f4eae1d1e76ffc1953
+timeCreated: 1493567376
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: forest_background_item_00
+    21300002: forest_background_item_01
+    21300004: forest_background_item_02
+    21300006: forest_background_item_03
+    21300008: forest_background_item_04
+    21300010: forest_background_item_05
+    21300012: forest_background_item_06
+    21300014: forest_background_item_07
+    21300016: forest_background_item_08
+    21300018: forest_background_item_09
+    21300020: forest_background_item_10
+    21300022: forest_background_item_11
+    21300024: forest_background_item_12
+    21300026: forest_background_item_13
+    21300028: forest_background_item_14
+    21300030: forest_background_item_15
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: forest_background_item_00
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 161
+        width: 135
+        height: 247
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5060729}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_01
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 231
+        width: 144
+        height: 247
+      alignment: 9
+      pivot: {x: 0.5208333, y: 0.51619434}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_02
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 934
+        width: 70
+        height: 89
+      alignment: 9
+      pivot: {x: 0.5285714, y: 0.5168539}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_03
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 731
+        width: 113
+        height: 292
+      alignment: 9
+      pivot: {x: 0.4778761, y: 0.51369864}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_04
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 337
+        width: 114
+        height: 200
+      alignment: 9
+      pivot: {x: 0.50438595, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_05
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 540
+        width: 115
+        height: 294
+      alignment: 9
+      pivot: {x: 0.50869566, y: 0.48979592}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_06
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 602
+        width: 213
+        height: 284
+      alignment: 9
+      pivot: {x: 0.48826292, y: 0.50352114}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_07
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 478
+        width: 158
+        height: 244
+      alignment: 9
+      pivot: {x: 0.5031645, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_08
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 196
+        width: 176
+        height: 145
+      alignment: 9
+      pivot: {x: 0.52272725, y: 0.45517242}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_09
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 18
+        width: 190
+        height: 43
+      alignment: 9
+      pivot: {x: 0.49473685, y: 0.5116279}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_10
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 701
+        width: 75
+        height: 125
+      alignment: 9
+      pivot: {x: 0.5133333, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_11
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 53
+        width: 213
+        height: 176
+      alignment: 9
+      pivot: {x: 0.5093897, y: 0.50284094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 724
+        width: 280
+        height: 299
+      alignment: 9
+      pivot: {x: 0.49464285, y: 0.50167227}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_13
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 410
+        width: 188
+        height: 196
+      alignment: 9
+      pivot: {x: 0.50797874, y: 0.5102041}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_14
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 396
+        width: 98
+        height: 57
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4649123}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: forest_background_item_15
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 520
+        width: 94
+        height: 81
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5123457}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -97,7 +97,7 @@ public class LevelLayer : MonoBehaviour {
 	private int[] levelLayout = new int[levelSize];
 	private static int tileBuffer  = 4;
 	private List<GameObject> objectsNoLongerNeeded;
-
+	private Object[] ground_items_sprites;
 	public void SetupLevelLayer()
 	{
 		tiles          = new List<GameObject>();
@@ -109,8 +109,11 @@ public class LevelLayer : MonoBehaviour {
 		activeTiles    = new Dictionary<int,GameObject>();
 		objectsNoLongerNeeded = new List<GameObject>();
 
-		string resource_path   = levelNumber + "/" + levelPart;
-		Object[] groundSprites = Resources.LoadAll(resource_path, typeof(Sprite));
+		string ground_items_resource_path = levelNumber + "/ground_items";
+		ground_items_sprites = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
+
+		string ground_resource_path   = levelNumber + "/" + levelPart;
+		Object[] groundSprites = Resources.LoadAll(ground_resource_path, typeof(Sprite));
 
 		// Create the sprites
 		for (int i = 0; i < groundSprites.Length; i++){
@@ -159,7 +162,7 @@ public class LevelLayer : MonoBehaviour {
 		}
 
 		// Determine the width of the tiles
-		// Random.Range is inclusive?  Hmm...
+		// Random.Range is inclusive
 		int tn       = Random.Range(0,tiles.Count - 1);
 		GameObject t = tiles[tn];
 		tileWidth    = t.GetComponent<Renderer>().bounds.size.x - 0.01f;
@@ -221,6 +224,24 @@ public class LevelLayer : MonoBehaviour {
 		}
 	}
 
+	void addGroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
+		for (int x = 0; x < numDecorations; x++){
+			int idx = (int)(Random.Range(0,ground_items_sprites.Length+1) - 0.001);
+			
+			Sprite s = ground_items_sprites[idx] as Sprite;
+			GameObject decoration = new GameObject(s.name);
+			SpriteRenderer sr = decoration.AddComponent<SpriteRenderer>();
+			sr.sprite = s;
+			sr.sortingLayerName = displayLayer;
+			sr.sortingOrder = x;
+			decoration.transform.position = new Vector2(referenceTile.transform.position.x + Random.Range(-2,2), 
+			                                            referenceTile.transform.position.y + 0.1f);
+
+			// This adds them to the deletion queue for when they no longer are near the player
+			objectsNoLongerNeeded.Add(decoration);
+		}
+	}
+
 	void Update(){
 		int cameraFrame = (int)(gameCamera.transform.position.x / tileWidth);
 
@@ -267,12 +288,18 @@ public class LevelLayer : MonoBehaviour {
 														  tilecopy.transform.position.z);
 				tilecopy.SetActive(true);
 
-				// foreach(GameObject attachedObject in tilecopy.GetComponent<TileData>().attachedObjects){
-				// 	attachedObject.transform.position = new Vector2(tilecopy.transform.position.x,attachedObject.transform.position.y);
-				// 	attachedObject.SetActive(true);
-				// }
+				// If we are the ground layer, then create the ground items, based on the
+				// tile number as a seed.
+				if (sortLayerName == "Ground"){
+					Random.InitState(ii);
+					int numFront = (int)Random.Range(5,7);
+					int numBack  = (int)Random.Range(5,7);
 
-				// If we are the Proximate Background level, attempt to attach clouds.
+					addGroundDecorations(numFront,"GroundFront",tilecopy);
+					addGroundDecorations(numBack, "GroundBack",tilecopy);
+				}
+				
+				// If we are the Proximate Background layer, attempt to attach clouds.
 				if (sortLayerName == "BackgroundProximate"){
 					if (Random.Range(0,100) > 60){
 						GameObject skyObjectPrefab = Resources.Load("SkyObject") as GameObject;
@@ -323,7 +350,7 @@ public class LevelLayer : MonoBehaviour {
 				GameObject p = GameObject.FindWithTag("Player");
 				if (p != null && go != null){
 					float dist = Vector2.Distance(p.transform.position,go.transform.position);
-					if (Mathf.Abs(dist) > 10.0f){
+					if (Mathf.Abs(dist) > 20.0f){
 						Destroy(go);
 					}
 				}
