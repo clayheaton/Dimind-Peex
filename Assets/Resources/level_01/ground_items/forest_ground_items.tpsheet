@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # http://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:461a487aefbf9ef9208176df8ee7dabe:c4c38043ed49e690a9c45d2d1198e123:bcef6d3fa319916879cea52316926bb3$
+# $TexturePacker:SmartUpdate:fa3ae4fcaef70857db3ad7948420ea5d:c4c38043ed49e690a9c45d2d1198e123:bcef6d3fa319916879cea52316926bb3$
 #
 :format=40300
 :texture=forest_ground_items.png
@@ -12,11 +12,11 @@
 :pivotpoints=enabled
 :borders=disabled
 
-forest_ground_item_00;50;411;64;100; 0.5;0.5; 0;0;0;0
-forest_ground_item_01;1;168;158;75; 0.5;0.5; 0;0;0;0
-forest_ground_item_02;1;436;47;75; 0.5;0.5; 0;0;0;0
-forest_ground_item_03;1;245;156;60; 0.5;0.5; 0;0;0;0
-forest_ground_item_04;1;307;141;50; 0.5;0.5; 0;0;0;0
-forest_ground_item_05;101;359;132;50; 0.5;0.5; 0;0;0;0
-forest_ground_item_06;1;369;98;40; 0.5;0.5; 0;0;0;0
-forest_ground_item_07;116;411;86;100; 0.5;0.5; 0;0;0;0
+forest_ground_item_00;50;411;64;100; 0.4375;0.15000000000000002; 0;0;0;0
+forest_ground_item_01;1;168;158;75; 0.5;0.21333333; 0;0;0;0
+forest_ground_item_02;1;436;47;75; 0.53191489;0.13333333000000003; 0;0;0;0
+forest_ground_item_03;1;245;156;60; 0.5;0.25; 0;0;0;0
+forest_ground_item_04;1;307;141;50; 0.4964539;0.19999999999999996; 0;0;0;0
+forest_ground_item_05;101;359;132;50; 0.5;0.12; 0;0;0;0
+forest_ground_item_06;1;369;98;40; 0.5;0.19999999999999996; 0;0;0;0
+forest_ground_item_07;116;411;86;100; 0.40697674;0.12; 0;0;0;0
