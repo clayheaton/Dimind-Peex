@@ -302,6 +302,9 @@ public class LevelLayer : MonoBehaviour {
 					addGroundDecorations(numFront,"GroundFront",tilecopy);
 					addGroundDecorations(numBack, "GroundBack",tilecopy);
 				}
+
+				// Return the random seed to the one established in GameManager
+				Random.InitState(levelManager.randomSeed);
 				
 				// If we are the Proximate Background layer, attempt to attach clouds.
 				if (sortLayerName == "BackgroundProximate"){
