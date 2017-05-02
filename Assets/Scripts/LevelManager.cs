@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour {
 
 		layers = new List<GameObject>();
 
-		// Create a ground collider that moves with the camera
+		// Create a huge ground collider for the player to move on.
 		GameObject groundCollider = new GameObject("Ground Collider");
 		groundCollider.transform.position = new Vector2(0.0f,1.0f);
 		groundCollider.layer = LayerMask.NameToLayer("Ground");
@@ -100,7 +100,6 @@ public class LevelLayer : MonoBehaviour {
 	private int[] levelLayout = new int[levelSize];
 	private static int tileBuffer  = 4;
 	private List<GameObject> objectsNoLongerNeeded;
-	// TODO: Make this into LayerSpecificSprites?
 	private Object[] layerSpecificDecorations;
 	private Object[] layerSprites;
 
