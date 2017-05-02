@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		// Establish a random seed for repeatable levels
-		randomSeed = 15;
+		randomSeed = Random.Range(1,1000);
 		Random.InitState(randomSeed);
 
 		player = Instantiate(Resources.Load("player") as GameObject);

@@ -100,7 +100,8 @@ public class LevelLayer : MonoBehaviour {
 	private int[] levelLayout = new int[levelSize];
 	private static int tileBuffer  = 4;
 	private List<GameObject> objectsNoLongerNeeded;
-	private Object[] ground_items_sprites;
+	// TODO: Make this into LayerSpecificSprites?
+	private Object[] layerSpecificDecorations;
 	private Object[] layerSprites;
 
 	public void SetupLevelLayer()
@@ -112,6 +113,11 @@ public class LevelLayer : MonoBehaviour {
 		if (sortLayerName == "Ground"){
 			// Need to initialize the ground_item_sprites
 			SetupGroundLayerResources();
+		}
+
+		if (sortLayerName == "BackgroundProximate"){
+			// Initialize the background_item_sprites
+			SetupBackgroundLayerResources();
 		}
 
 		// Create prototype tiles
@@ -153,7 +159,12 @@ public class LevelLayer : MonoBehaviour {
 
 	public void SetupGroundLayerResources() {
 		string ground_items_resource_path = levelNumber + "/ground_items";
-		ground_items_sprites = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
+		layerSpecificDecorations = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
+	}
+
+	public void SetupBackgroundLayerResources() {
+		string ground_items_resource_path = levelNumber + "/background_items";
+		layerSpecificDecorations = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
 	}
 
 	public void CreatePrototypeTileObjects() {
@@ -332,6 +343,8 @@ public class LevelLayer : MonoBehaviour {
 						skyObject.SetActive(true);
 						tilecopy.GetComponent<TileData>().attachedObjects.Add(skyObject);
 					}
+					int numBackgroundItems = (int)Random.Range(0,3);
+					addBackgroundDecorations(numBackgroundItems,"BackgroundProximate",tilecopy);
 				}
 				// Keep a dicionary of active tiles
 				activeTiles.Add(neededFrameNumber,tilecopy);
@@ -344,9 +357,9 @@ public class LevelLayer : MonoBehaviour {
 
 	void addGroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
 		for (int x = 0; x < numDecorations; x++){
-			int idx = (int)(Random.Range(0,ground_items_sprites.Length+1) - 0.001);
+			int idx = (int)(Random.Range(0,layerSpecificDecorations.Length+1) - 0.001);
 			
-			Sprite s = ground_items_sprites[idx] as Sprite;
+			Sprite s = layerSpecificDecorations[idx] as Sprite;
 			GameObject decoration = new GameObject(s.name);
 			SpriteRenderer sr = decoration.AddComponent<SpriteRenderer>();
 			sr.sprite = s;
@@ -354,6 +367,24 @@ public class LevelLayer : MonoBehaviour {
 			sr.sortingOrder = x;
 			decoration.transform.position = new Vector2(referenceTile.transform.position.x + Random.Range(-2,2), 
 			                                            referenceTile.transform.position.y + 0.1f);
+
+			// This adds them to the deletion queue for when they no longer are near the player
+			objectsNoLongerNeeded.Add(decoration);
+		}
+	}
+
+	void addBackgroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
+		for (int x = 0; x < numDecorations; x++){
+			int idx = (int)(Random.Range(0,layerSpecificDecorations.Length+1) - 0.001);
+			
+			Sprite s = layerSpecificDecorations[idx] as Sprite;
+			GameObject decoration = new GameObject(s.name);
+			SpriteRenderer sr = decoration.AddComponent<SpriteRenderer>();
+			sr.sprite = s;
+			sr.sortingLayerName = displayLayer;
+			sr.sortingOrder = x+3;
+			decoration.transform.position = new Vector2(referenceTile.transform.position.x + Random.Range(-2,2), 
+			                                            referenceTile.transform.position.y - 3.0f);
 
 			// This adds them to the deletion queue for when they no longer are near the player
 			objectsNoLongerNeeded.Add(decoration);
