@@ -56,7 +56,7 @@ public class LevelManager : MonoBehaviour {
 		layers.Add(go);
 
 		// Background Layer
-		// The proximate background layer will spawn clouds, too
+		// & Sky Objects (clouds, etc.)
 		GameObject go2    = new GameObject("Background Layer");
 		LevelLayer ll2    = go.AddComponent<LevelLayer>();
 		ll2.levelManager  = this;
@@ -101,9 +101,43 @@ public class LevelLayer : MonoBehaviour {
 	private static int tileBuffer  = 4;
 	private List<GameObject> objectsNoLongerNeeded;
 	private Object[] ground_items_sprites;
-	private Object[] groundSprites;
+	private Object[] layerSprites;
+
 	public void SetupLevelLayer()
 	{
+		// Generic containers for all level layers
+		SetupGenericContainers();
+
+		// Layer specific initialization
+		if (sortLayerName == "Ground"){
+			// Need to initialize the ground_item_sprites
+			SetupGroundLayerResources();
+		}
+
+		// Create prototype tiles
+		CreatePrototypeTileObjects();
+		
+		// Creates an array of integers that are the indices of the
+		// tiles that will be used for the level
+		GenerateTilingForLevel();
+	}
+
+	void Update(){
+		int cameraFrame = (int)(gameCamera.transform.position.x / tileWidth);
+		HashSet<int> framesNeededForDisplay = new HashSet<int>();
+
+		// Create tiles we need and display needed tiles
+		UpdateAddAndDisplayTiles(cameraFrame,framesNeededForDisplay);
+
+		// Remove tiles that we no longer need to display
+		UpdateRemoveTilesNotNeeded(cameraFrame,framesNeededForDisplay);
+
+		// Cleanup tiles we no longer need
+		UpdateRemoveTilesNotNeeded(cameraFrame,framesNeededForDisplay);
+
+	}
+
+	public void SetupGenericContainers() {
 		tiles          = new List<GameObject>();
 		tilesLeftLow   = new List<GameObject>();
 		tilesLeftHigh  = new List<GameObject>();
@@ -113,15 +147,19 @@ public class LevelLayer : MonoBehaviour {
 		activeTiles    = new Dictionary<int,GameObject>();
 		objectsNoLongerNeeded = new List<GameObject>();
 
+		string ground_resource_path = levelNumber + "/" + levelPart;
+		layerSprites = Resources.LoadAll(ground_resource_path, typeof(Sprite));
+	}
+
+	public void SetupGroundLayerResources() {
 		string ground_items_resource_path = levelNumber + "/ground_items";
 		ground_items_sprites = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
+	}
 
-		string ground_resource_path = levelNumber + "/" + levelPart;
-		groundSprites = Resources.LoadAll(ground_resource_path, typeof(Sprite));
-
+	public void CreatePrototypeTileObjects() {
 		// Create the sprites
-		for (int i = 0; i < groundSprites.Length; i++){
-			Sprite s = groundSprites[i] as Sprite;
+		for (int i = 0; i < layerSprites.Length; i++){
+			Sprite s = layerSprites[i] as Sprite;
 			GameObject tile = new GameObject(s.name);
 			SpriteRenderer sr = tile.AddComponent<SpriteRenderer>();
 			sr.sprite = s;
@@ -164,34 +202,36 @@ public class LevelLayer : MonoBehaviour {
 			// Add to the general pool
 			tiles.Add(tile);
 		}
+	}
 
+	private void GenerateTilingForLevel(){
 		// Determine the width of the tiles
 		// Random.Range is inclusive
-		int tn       = Random.Range(0,tiles.Count - 1);
+		int tn = Random.Range(0,tiles.Count - 1);
 		GameObject t = tiles[tn];
-		tileWidth    = t.GetComponent<Renderer>().bounds.size.x - 0.01f;
+		tileWidth = t.GetComponent<Renderer>().bounds.size.x - 0.01f;
 
 		// Populate an array with the numbers of the tiles
 		for (int i = 0; i < levelSize; i++){
 			// Initialize the level by placing a random tile at position 0 and then build off of it.
 			if (i == 0){
-				int r          = (int)Random.Range(0,numTiles);
+				int r = (int)Random.Range(0,numTiles);
 				levelLayout[i] = r;
 			} else if(i == levelSize - 1){
 				// The last tile should match the first tile and the tile before it
 				GameObject previousTile = tileLookup[levelLayout[i-1]];
-				SideCode lCode          = previousTile.GetComponent<TileData>().RightCode;
+				SideCode lCode = previousTile.GetComponent<TileData>().RightCode;
 
-				GameObject firstTile    = tileLookup[levelLayout[0]];
-				SideCode rCode          = firstTile.GetComponent<TileData>().LeftCode;
+				GameObject firstTile = tileLookup[levelLayout[0]];
+				SideCode rCode = firstTile.GetComponent<TileData>().LeftCode;
 
 				if (lCode == SideCode.Low) {
 					foreach (GameObject candidate in tilesLeftLow){
 						SideCode candidateRight = candidate.GetComponent<TileData>().RightCode;
 						if (candidateRight == rCode){
 							TileData tiledata = candidate.GetComponent<TileData>();
-							int nextTileCode  = tiledata.tileNumber;
-							levelLayout[i]    = nextTileCode;
+							int nextTileCode = tiledata.tileNumber;
+							levelLayout[i] = nextTileCode;
 							break;
 						}
 					}
@@ -200,8 +240,8 @@ public class LevelLayer : MonoBehaviour {
 						SideCode candidateRight = candidate.GetComponent<TileData>().RightCode;
 						if (candidateRight == rCode){
 							TileData tiledata = candidate.GetComponent<TileData>();
-							int nextTileCode  = tiledata.tileNumber;
-							levelLayout[i]    = nextTileCode;
+							int nextTileCode = tiledata.tileNumber;
+							levelLayout[i] = nextTileCode;
 							break;
 						}
 					}
@@ -228,29 +268,8 @@ public class LevelLayer : MonoBehaviour {
 		}
 	}
 
-	void addGroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
-		for (int x = 0; x < numDecorations; x++){
-			int idx = (int)(Random.Range(0,ground_items_sprites.Length+1) - 0.001);
-			
-			Sprite s = ground_items_sprites[idx] as Sprite;
-			GameObject decoration = new GameObject(s.name);
-			SpriteRenderer sr = decoration.AddComponent<SpriteRenderer>();
-			sr.sprite = s;
-			sr.sortingLayerName = displayLayer;
-			sr.sortingOrder = x;
-			decoration.transform.position = new Vector2(referenceTile.transform.position.x + Random.Range(-2,2), 
-			                                            referenceTile.transform.position.y + 0.1f);
-
-			// This adds them to the deletion queue for when they no longer are near the player
-			objectsNoLongerNeeded.Add(decoration);
-		}
-	}
-
-	void Update(){
-		int cameraFrame = (int)(gameCamera.transform.position.x / tileWidth);
-
-		HashSet<int> framesNeededForDisplay = new HashSet<int>();
-
+	void UpdateAddAndDisplayTiles(int cameraFrame,HashSet<int>framesNeededForDisplay)
+	{
 		// Add and Display tiles that we need
 		for (int i = cameraFrame - tileBuffer; i < cameraFrame + tileBuffer; i++){
 
@@ -303,10 +322,8 @@ public class LevelLayer : MonoBehaviour {
 					addGroundDecorations(numBack, "GroundBack",tilecopy);
 				}
 
-				// Return the random seed to the one established in GameManager
-				Random.InitState(levelManager.randomSeed);
-				
 				// If we are the Proximate Background layer, attempt to attach clouds.
+				Random.InitState(ii*ii);
 				if (sortLayerName == "BackgroundProximate"){
 					if (Random.Range(0,100) > 60){
 						GameObject skyObjectPrefab = Resources.Load("SkyObject") as GameObject;
@@ -318,10 +335,32 @@ public class LevelLayer : MonoBehaviour {
 				}
 				// Keep a dicionary of active tiles
 				activeTiles.Add(neededFrameNumber,tilecopy);
+
+				// Return the random seed to the one established in GameManager
+				Random.InitState(levelManager.randomSeed);
 			}
 		}
+	}
 
-		// Remove tiles that we no longer need to display
+	void addGroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
+		for (int x = 0; x < numDecorations; x++){
+			int idx = (int)(Random.Range(0,ground_items_sprites.Length+1) - 0.001);
+			
+			Sprite s = ground_items_sprites[idx] as Sprite;
+			GameObject decoration = new GameObject(s.name);
+			SpriteRenderer sr = decoration.AddComponent<SpriteRenderer>();
+			sr.sprite = s;
+			sr.sortingLayerName = displayLayer;
+			sr.sortingOrder = x;
+			decoration.transform.position = new Vector2(referenceTile.transform.position.x + Random.Range(-2,2), 
+			                                            referenceTile.transform.position.y + 0.1f);
+
+			// This adds them to the deletion queue for when they no longer are near the player
+			objectsNoLongerNeeded.Add(decoration);
+		}
+	}
+
+	void UpdateRemoveTilesNotNeeded(int cameraFrame, HashSet<int> framesNeededForDisplay){
 		List<int> keysToRemove = new List<int>();
 
 		// They keys in activeTiles are equal to the cameraFrame
@@ -354,14 +393,13 @@ public class LevelLayer : MonoBehaviour {
 		// Loop through all objects in objectsNoLongerNeeded and if they are
 		// far enough away from the player, destroy them.
 		foreach(GameObject go in objectsNoLongerNeeded){
-				GameObject p = GameObject.FindWithTag("Player");
-				if (p != null && go != null){
-					float dist = Vector2.Distance(p.transform.position,go.transform.position);
-					if (Mathf.Abs(dist) > 20.0f){
-						Destroy(go);
-					}
+			GameObject p = GameObject.FindWithTag("Player");
+			if (p != null && go != null){
+				float dist = Vector2.Distance(p.transform.position,go.transform.position);
+				if (Mathf.Abs(dist) > 20.0f){
+					Destroy(go);
 				}
 			}
-
+		}
 	}
 }
