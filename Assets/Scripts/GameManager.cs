@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour {
 	public Camera gameCamera;
 	private LevelManager levelScript;
 	public GameObject player;
-
+	public int randomSeed;
 	private string level = "level_01";
 	// Use this for initialization
 	void Awake () {
+		// Establish a random seed for repeatable levels
+		randomSeed = 15;
+		Random.InitState(randomSeed);
+
 		player = Instantiate(Resources.Load("player") as GameObject);
 		gameCamera = Instantiate(Resources.Load("cam",typeof(Camera)) as Camera);
-		//Instantiate(player);
-		//Instantiate(gameCamera);
 		CameraController cc = gameCamera.GetComponent<CameraController>();
 		cc.player   = player;
 		levelScript = GetComponent<LevelManager>();
+		levelScript.randomSeed = randomSeed;
 		levelScript.player = player;
 		levelScript.gameCamera = gameCamera;
 		InitGame();

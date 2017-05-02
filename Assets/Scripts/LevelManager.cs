@@ -20,7 +20,7 @@ public class CameraFrameData : MonoBehaviour
 }
 
 public class LevelManager : MonoBehaviour {
-
+	public int randomSeed;
 	private string levelType;
 	private List<GameObject> layers;
 	public GameObject player;
@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour {
 		// Ground Layer
 		GameObject go    = new GameObject("Ground Layer");
 		LevelLayer ll    = go.AddComponent<LevelLayer>();
+		ll.levelManager  = this;
 		ll.gameCamera    = gameCamera;
 		ll.levelNumber   = level;
 		ll.levelPart     = "grounds";
@@ -58,6 +59,7 @@ public class LevelManager : MonoBehaviour {
 		// The proximate background layer will spawn clouds, too
 		GameObject go2    = new GameObject("Background Layer");
 		LevelLayer ll2    = go.AddComponent<LevelLayer>();
+		ll2.levelManager  = this;
 		ll2.gameCamera    = gameCamera;
 		ll2.levelNumber   = level;
 		ll2.levelPart     = "backgrounds";
@@ -78,6 +80,7 @@ public class LevelManager : MonoBehaviour {
 }
 
 public class LevelLayer : MonoBehaviour {
+	public LevelManager levelManager;
 	public string levelNumber;
 	public string levelPart;
 	public float yPosition;
@@ -98,6 +101,7 @@ public class LevelLayer : MonoBehaviour {
 	private static int tileBuffer  = 4;
 	private List<GameObject> objectsNoLongerNeeded;
 	private Object[] ground_items_sprites;
+	private Object[] groundSprites;
 	public void SetupLevelLayer()
 	{
 		tiles          = new List<GameObject>();
@@ -112,8 +116,8 @@ public class LevelLayer : MonoBehaviour {
 		string ground_items_resource_path = levelNumber + "/ground_items";
 		ground_items_sprites = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
 
-		string ground_resource_path   = levelNumber + "/" + levelPart;
-		Object[] groundSprites = Resources.LoadAll(ground_resource_path, typeof(Sprite));
+		string ground_resource_path = levelNumber + "/" + levelPart;
+		groundSprites = Resources.LoadAll(ground_resource_path, typeof(Sprite));
 
 		// Create the sprites
 		for (int i = 0; i < groundSprites.Length; i++){
@@ -291,7 +295,7 @@ public class LevelLayer : MonoBehaviour {
 				// If we are the ground layer, then create the ground items, based on the
 				// tile number as a seed.
 				if (sortLayerName == "Ground"){
-					Random.InitState(ii);
+					Random.InitState(levelManager.randomSeed + ii);
 					int numFront = (int)Random.Range(5,7);
 					int numBack  = (int)Random.Range(5,7);
 
