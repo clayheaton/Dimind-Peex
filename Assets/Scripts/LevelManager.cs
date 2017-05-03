@@ -55,9 +55,9 @@ public class LevelManager : MonoBehaviour {
 		ll.SetupLevelLayer();
 		layers.Add(go);
 
-		// Background Layer
+		// Proximate Background Layer
 		// & Sky Objects (clouds, etc.)
-		GameObject go2    = new GameObject("Background Layer");
+		GameObject go2    = new GameObject("Proximate Background Layer");
 		LevelLayer ll2    = go.AddComponent<LevelLayer>();
 		ll2.levelManager  = this;
 		ll2.gameCamera    = gameCamera;
@@ -68,6 +68,21 @@ public class LevelManager : MonoBehaviour {
 		ll2.needsCollider = false;
 		ll2.SetupLevelLayer();
 		layers.Add(go2);
+
+		// Medial Background Layer
+		GameObject go3 = new GameObject("Medial Background layer");
+		LevelLayer ll3 = go3.AddComponent<LevelLayer>();
+		ll3.levelManager = this;
+		ll3.gameCamera   = gameCamera;
+		ll3.levelNumber  = "level_02";
+		ll3.levelPart    = "backgrounds";
+		ll3.yPosition    = 5.5f;
+		ll3.sortLayerName = "BackgroundMedial";
+		ll3.needsCollider = false;
+		ll3.parallaxLayer = true;
+		ll3.parallaxMovementFactor = 0.5f;
+		ll3.SetupLevelLayer();
+		layers.Add(go3);
 	}
 	void Start () {
 		
@@ -102,6 +117,8 @@ public class LevelLayer : MonoBehaviour {
 	private List<GameObject> objectsNoLongerNeeded;
 	private Object[] layerSpecificDecorations;
 	private Object[] layerSprites;
+	public bool parallaxLayer = false;
+	public float parallaxMovementFactor = 1;
 
 	public void SetupLevelLayer()
 	{
@@ -109,12 +126,12 @@ public class LevelLayer : MonoBehaviour {
 		SetupGenericContainers();
 
 		// Layer specific initialization
-		if (sortLayerName == "Ground"){
+		if (sortLayerName == "Ground" && !parallaxLayer){
 			// Need to initialize the ground_item_sprites
 			SetupGroundLayerResources();
 		}
 
-		if (sortLayerName == "BackgroundProximate"){
+		if (sortLayerName == "BackgroundProximate" && !parallaxLayer){
 			// Initialize the background_item_sprites
 			SetupBackgroundLayerResources();
 		}

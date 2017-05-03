@@ -8,6 +8,8 @@ tpsheetFileNames:
 - Assets/Resources/level_01/ground_items/forest_ground_items.tpsheet
 - Assets/Resources/level_01/grounds/forest_ground.tpsheet
 - Assets/Resources/level_01/skies/forest_clouds.tpsheet
+- Assets/Resources/level_02/backgrounds/mountains_background01.tpsheet
+- Assets/Resources/level_02/backgrounds/mountains_background02.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
 - Assets/Resources/grounds/forest_ground.png
@@ -16,8 +18,12 @@ textureFileNames:
 - Assets/Resources/level_01/ground_items/forest_ground_items.png
 - Assets/Resources/level_01/grounds/forest_ground.png
 - Assets/Resources/level_01/skies/forest_clouds.png
+- Assets/Resources/level_02/backgrounds/mountains_background01.png
+- Assets/Resources/level_02/backgrounds/mountains_background02.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
+- 
 - 
 - 
 - 

@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: caf72e1daad06424d9ecb9b19db24cf6
+timeCreated: 1493772771
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: mountains_06_LL
+    21300002: mountains_07_LL
+    21300004: mountains_08_LL
+    21300006: mountains_09_LL
+    21300008: mountains_10_LL
+    21300010: mountains_11_LL
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: mountains_06_LL
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 314
+        width: 600
+        height: 345
+      alignment: 9
+      pivot: {x: 0.5, y: 1.1594203}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: mountains_07_LL
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 190
+        width: 600
+        height: 378
+      alignment: 9
+      pivot: {x: 0.5, y: 1.0582011}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: mountains_08_LL
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 35
+        width: 600
+        height: 277
+      alignment: 9
+      pivot: {x: 0.5, y: 1.4440433}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: mountains_09_LL
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 570
+        width: 600
+        height: 453
+      alignment: 9
+      pivot: {x: 0.5, y: 0.8830022}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: mountains_10_LL
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 661
+        width: 600
+        height: 362
+      alignment: 9
+      pivot: {x: 0.5, y: 1.1049724}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: mountains_11_LL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 223
+        width: 600
+        height: 800
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: -1
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
