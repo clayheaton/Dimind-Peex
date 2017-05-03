@@ -357,7 +357,15 @@ public class LevelLayer : MonoBehaviour {
 				if (parallaxLayer){
 					tilecopy.transform.SetParent(parallaxParent.transform);
 				}
-				tilecopy.transform.position = new Vector3(actualpos*tileWidth,
+
+				float tileCopyXPosition;
+				if (parallaxLayer) {
+					tileCopyXPosition = parallaxParent.transform.position.x + (actualpos*tileWidth);
+				} else {
+					tileCopyXPosition = actualpos * tileWidth;
+				}
+
+				tilecopy.transform.position = new Vector3(tileCopyXPosition,
 				                                          thistile.transform.position.y,
 														  tilecopy.transform.position.z);
 
