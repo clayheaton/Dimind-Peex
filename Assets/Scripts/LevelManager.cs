@@ -12,6 +12,7 @@ public class TileData : MonoBehaviour
 	public SideCode RightCode;
 	public int tileNumber;
 	public List<GameObject> attachedObjects = new List<GameObject>();
+	public float nonParallaxXPosition;
 }
 
 public class CameraFrameData : MonoBehaviour
@@ -147,7 +148,18 @@ public class LevelLayer : MonoBehaviour {
 
 	void Update(){
 		// TODO: Parallax
-		int cameraFrame = (int)((gameCamera.transform.position.x / tileWidth));
+		int cameraFrame;
+		
+		if (parallaxLayer){
+			parallaxParent.transform.position = new Vector2(gameCamera.transform.position.x * parallaxMovementFactor,
+			 											    gameCamera.transform.position.y);
+
+			cameraFrame = (int)((parallaxParent.transform.position.x / tileWidth));
+		} else {
+			cameraFrame = (int)((gameCamera.transform.position.x / tileWidth));
+		}
+		
+		 
 		HashSet<int> framesNeededForDisplay = new HashSet<int>();
 
 		// Create tiles we need and display needed tiles
@@ -176,7 +188,8 @@ public class LevelLayer : MonoBehaviour {
 
 		if (parallaxLayer){
 			parallaxParent = new GameObject("Parallax Parent");
-			parallaxParent.transform.position = gameCamera.transform.position;
+			parallaxParent.transform.position =   new Vector2(gameCamera.transform.position.x * parallaxMovementFactor,
+			 											      gameCamera.transform.position.y);
 		}
 	}
 
@@ -347,6 +360,10 @@ public class LevelLayer : MonoBehaviour {
 				tilecopy.transform.position = new Vector3(actualpos*tileWidth,
 				                                          thistile.transform.position.y,
 														  tilecopy.transform.position.z);
+
+				// We can store the non-parallax X position and then use that to find the 
+				// proper offset for displaying the tile when we move
+				tilecopy.GetComponent<TileData>().nonParallaxXPosition = tilecopy.transform.position.x;
 				tilecopy.SetActive(true);
 
 				// If we are the ground layer, then create the ground items, based on the
@@ -383,17 +400,22 @@ public class LevelLayer : MonoBehaviour {
 			// Now, we either added the tile or we already had it.
 			// Update the position for parallax layers. 
 			// TODO: Parallax
-			if(parallaxLayer){
-				parallaxParent.transform.position = new Vector2(gameCamera.transform.position.x * parallaxMovementFactor,
-				                                                parallaxParent.transform.position.y);
-				// GameObject tilecopy = activeTiles[neededFrameNumber];
-				// // The tile has a position, so now we need to reset it.
-				// float deltaDist  = gameCamera.transform.position.x - tilecopy.transform.position.x;
-				// float adjustment = deltaDist * parallaxMovementFactor;
-				// tilecopy.transform.position = new Vector3(tilecopy.transform.position.x + adjustment,
-				//                                           tilecopy.transform.position.y,
-				// 										  tilecopy.transform.position.z);
-			}
+			// if(parallaxLayer){
+			// 	GameObject tilecopy = activeTiles[neededFrameNumber];
+			// 	float deltaDist = gameCamera.transform.position.x - tilecopy.GetComponent<TileData>().nonParallaxXPosition;
+			// 	float xAdjustment = deltaDist * parallaxMovementFactor;
+			// 	tilecopy.transform.position = new Vector2(tilecopy.transform.position.x,tilecopy.transform.position.y);
+
+			// 	// parallaxParent.transform.position = new Vector2(gameCamera.transform.position.x * parallaxMovementFactor,
+			// 	//                                                 parallaxParent.transform.position.y);
+			// 	// GameObject tilecopy = activeTiles[neededFrameNumber];
+			// 	// // The tile has a position, so now we need to reset it.
+			// 	// float deltaDist  = gameCamera.transform.position.x - tilecopy.transform.position.x;
+			// 	// float adjustment = deltaDist * parallaxMovementFactor;
+			// 	// tilecopy.transform.position = new Vector3(tilecopy.transform.position.x + adjustment,
+			// 	//                                           tilecopy.transform.position.y,
+			// 	// 										  tilecopy.transform.position.z);
+			// }
 		}
 	}
 
