@@ -72,7 +72,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1205
-        y: 314
+        y: 678
         width: 600
         height: 345
       alignment: 9
@@ -84,8 +84,8 @@ TextureImporter:
       name: mountains_07_LL
       rect:
         serializedVersion: 2
-        x: 603
-        y: 190
+        x: 1
+        y: 71
         width: 600
         height: 378
       alignment: 9
@@ -98,7 +98,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1205
-        y: 35
+        y: 399
         width: 600
         height: 277
       alignment: 9
@@ -123,8 +123,8 @@ TextureImporter:
       name: mountains_10_LL
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 661
+        x: 603
+        y: 206
         width: 600
         height: 362
       alignment: 9
@@ -137,11 +137,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 223
+        y: 451
         width: 600
-        height: 800
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 572
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6993007}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: -1

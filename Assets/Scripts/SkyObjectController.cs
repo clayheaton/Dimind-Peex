@@ -28,10 +28,12 @@ public class SkyObjectController : MonoBehaviour {
 		SpriteRenderer sr = thisSkyObject.AddComponent<SpriteRenderer>();
 		sr.sprite = skySprite;
 		int num = (int)Random.Range(0,100);
-		if (num > 50){
+		if (num > 60){
 			sr.sortingLayerName = "GroundBack";
-		} else {
+		} else if (num > 30) {
 			sr.sortingLayerName = "GroundFront";
+		} else {
+			sr.sortingLayerName = "BackgroundMedialFront";
 		}
 
 		skyObjectSpeed = Random.Range(100,200)/10000f;

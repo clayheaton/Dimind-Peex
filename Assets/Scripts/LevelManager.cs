@@ -74,15 +74,30 @@ public class LevelManager : MonoBehaviour {
 		LevelLayer ll3 = go3.AddComponent<LevelLayer>();
 		ll3.levelManager = this;
 		ll3.gameCamera   = gameCamera;
-		ll3.levelNumber  = "level_02";
+		ll3.levelNumber  = "level_01";
 		ll3.levelPart    = "backgrounds";
-		ll3.yPosition    = 5.5f;
+		ll3.yPosition    = 5.2f;
 		ll3.sortLayerName = "BackgroundMedial";
 		ll3.needsCollider = false;
 		ll3.parallaxLayer = true;
-		ll3.parallaxMovementFactor = 0.5f;
+		ll3.parallaxMovementFactor = 0.4f;
 		ll3.SetupLevelLayer();
 		layers.Add(go3);
+
+		// Distal Background Layer
+		GameObject go4 = new GameObject("Distal Background layer");
+		LevelLayer ll4 = go4.AddComponent<LevelLayer>();
+		ll4.levelManager = this;
+		ll4.gameCamera   = gameCamera;
+		ll4.levelNumber  = "level_02";
+		ll4.levelPart    = "backgrounds";
+		ll4.yPosition    = 5.3f;
+		ll4.sortLayerName = "BackgroundDistal";
+		ll4.needsCollider = false;
+		ll4.parallaxLayer = true;
+		ll4.parallaxMovementFactor = 0.7f;
+		ll4.SetupLevelLayer();
+		layers.Add(go4);
 	}
 	void Start () {
 		
@@ -113,7 +128,7 @@ public class LevelLayer : MonoBehaviour {
 	private int numTiles;
 	private static int levelSize = 100;
 	private int[] levelLayout = new int[levelSize];
-	private static int tileBuffer  = 4;
+	private static int tileBuffer = 4;
 	private List<GameObject> objectsNoLongerNeeded;
 	private Object[] layerSpecificDecorations;
 	private Object[] layerSprites;
@@ -146,14 +161,13 @@ public class LevelLayer : MonoBehaviour {
 	}
 
 	void Update(){
-		// TODO: Parallax
 		int cameraFrame;
 		
 		if (parallaxLayer){
 			parallaxParent.transform.position = new Vector2(gameCamera.transform.position.x * parallaxMovementFactor,
 			 											    gameCamera.transform.position.y);
 
-			cameraFrame = (int)((parallaxParent.transform.position.x / tileWidth));
+			cameraFrame = (int)(((gameCamera.transform.position.x - parallaxParent.transform.position.x) / tileWidth));
 		} else {
 			cameraFrame = (int)((gameCamera.transform.position.x / tileWidth));
 		}
@@ -187,6 +201,10 @@ public class LevelLayer : MonoBehaviour {
 
 		if (parallaxLayer){
 			parallaxParent = new GameObject("Parallax Parent");
+			// SpriteRenderer sr = parallaxParent.AddComponent<SpriteRenderer>();
+			// sr.sprite = Resources.Load<Sprite>("tracker");
+			// sr.sortingLayerName = "GroundFront";
+			// parallaxParent.SetActive(true);
 			parallaxParent.transform.position =   new Vector2(gameCamera.transform.position.x * parallaxMovementFactor,
 			 											      gameCamera.transform.position.y);
 		}
@@ -374,8 +392,8 @@ public class LevelLayer : MonoBehaviour {
 				// tile number as a seed.
 				if (sortLayerName == "Ground"){
 					Random.InitState(levelManager.randomSeed + ii);
-					int numFront = (int)Random.Range(5,7);
-					int numBack  = (int)Random.Range(5,7);
+					int numFront = (int)Random.Range(2,4);
+					int numBack  = (int)Random.Range(2,4);
 
 					addGroundDecorations(numFront,"GroundFront",tilecopy);
 					addGroundDecorations(numBack, "GroundBack",tilecopy);
