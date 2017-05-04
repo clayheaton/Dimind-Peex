@@ -160,7 +160,7 @@ public class LevelLayer : MonoBehaviour {
 		GenerateTilingForLevel();
 	}
 
-	void Update(){
+	void LateUpdate(){
 		int cameraFrame;
 		
 		if (parallaxLayer){
