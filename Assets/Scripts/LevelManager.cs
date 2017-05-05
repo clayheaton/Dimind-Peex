@@ -78,7 +78,7 @@ public class LevelManager : MonoBehaviour {
 		LevelLayer ll3 = go3.AddComponent<LevelLayer>();
 		ll3.levelManager = this;
 		ll3.gameCamera   = gameCamera;
-		ll3.levelNumber  = "level_01";
+		ll3.levelNumber  = "level_02";
 		ll3.levelPart    = "backgrounds";
 		ll3.yPosition    = 5.2f;
 		ll3.sortLayerName = "BackgroundMedial";

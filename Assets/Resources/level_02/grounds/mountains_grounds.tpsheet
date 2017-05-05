@@ -1,0 +1,20 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:cdf98e6e3077394d0b712c3535d7299a:f147cf91cf9d2f01c07bf28f975b4c49:156755fdc0ca48472850b579c6e5ee16$
+#
+:format=40300
+:texture=mountains_grounds.png
+:size=512x512
+:pivotpoints=enabled
+:borders=disabled
+
+mountains_ground_00_LL;1;344;400;81; 0.5;0.845679012345679; 0;0;0;0; 7;400;74;400;0;0;0;0;74;54;77;251;72;322;81; 5;2;4;5;2;3;4;1;5;6;1;2;5;0;1;6
+mountains_ground_01_LL;1;179;400;80; 0.5;0.85625; 0;0;0;0; 6;400;68;400;0;0;0;0;77;177;73;296;80; 4;2;3;4;1;4;5;1;2;4;0;1;5
+mountains_ground_02_LL;1;427;400;84; 0.5;0.8154761904761905; 0;0;0;0; 7;221;75;400;75;400;0;0;0;0;68;16;75;176;84; 5;3;5;6;3;4;5;0;2;3;0;1;2;0;3;6
+mountains_ground_03_LL;1;261;400;81; 0.5;0.845679012345679; 0;0;0;0; 5;400;73;400;0;0;0;0;76;256;81; 3;2;3;4;1;2;4;0;1;4
+mountains_ground_04_LL;1;19;400;76; 0.5;0.9013157894736842; 0;0;0;0; 4;400;70;400;0;0;0;0;76; 2;0;1;2;0;2;3
+mountains_ground_05_LL;1;97;400;80; 0.5;0.85625; 0;0;0;0; 8;90;74;278;66;311;75;400;75;400;0;0;0;0;70;73;80; 6;5;6;7;4;1;2;4;2;3;1;4;5;0;1;5;7;0;5

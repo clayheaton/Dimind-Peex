@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	private LevelManager levelScript;
 	public GameObject player;
 	public int randomSeed;
-	private string level = "level_01";
+	private string level = "level_02";
 	// Use this for initialization
 	void Awake () {
 		// Establish a random seed for repeatable levels

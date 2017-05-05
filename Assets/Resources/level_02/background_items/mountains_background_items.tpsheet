@@ -1,0 +1,15 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:1b579d7f22d249bbc95862e024c2e320:4703ae670db4b00d15d4655bb5e19026:f659ad3f57790bb9038bee291184fb01$
+#
+:format=40300
+:texture=mountains_background_items.png
+:size=128x512
+:pivotpoints=enabled
+:borders=disabled
+
+mountains_background_item_03;1;219;113;292; 0.4601769938053097;0.068493154109589; 0;0;0;0; 14;113;291;88;247;104;189;72;156;66;125;66;50;78;0;21;7;44;72;48;125;2;217;0;291;47;266;62;292; 12;10;11;12;3;9;10;10;2;3;8;4;5;5;6;7;5;7;8;8;9;4;3;4;9;10;12;1;10;1;2;1;12;13;0;1;13
