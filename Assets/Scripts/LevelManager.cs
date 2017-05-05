@@ -57,6 +57,8 @@ public class LevelManager : MonoBehaviour {
 
 		// Proximate Background Layer
 		// & Sky Objects (clouds, etc.)
+		randomSeed += 1;
+		Random.InitState(randomSeed);
 		GameObject go2    = new GameObject("Proximate Background Layer");
 		LevelLayer ll2    = go.AddComponent<LevelLayer>();
 		ll2.levelManager  = this;
@@ -70,6 +72,8 @@ public class LevelManager : MonoBehaviour {
 		layers.Add(go2);
 
 		// Medial Background Layer
+		randomSeed += 1;
+		Random.InitState(randomSeed);
 		GameObject go3 = new GameObject("Medial Background layer");
 		LevelLayer ll3 = go3.AddComponent<LevelLayer>();
 		ll3.levelManager = this;
@@ -85,6 +89,8 @@ public class LevelManager : MonoBehaviour {
 		layers.Add(go3);
 
 		// Distal Background Layer
+		randomSeed += 1;
+		Random.InitState(randomSeed);
 		GameObject go4 = new GameObject("Distal Background layer");
 		LevelLayer ll4 = go4.AddComponent<LevelLayer>();
 		ll4.levelManager = this;
@@ -171,8 +177,7 @@ public class LevelLayer : MonoBehaviour {
 		} else {
 			cameraFrame = (int)((gameCamera.transform.position.x / tileWidth));
 		}
-		
-		 
+
 		HashSet<int> framesNeededForDisplay = new HashSet<int>();
 
 		// Create tiles we need and display needed tiles
@@ -266,11 +271,14 @@ public class LevelLayer : MonoBehaviour {
 			// Add to the general pool
 			tiles.Add(tile);
 		}
+		// With prototypes generated, set the numTiles variable
+		numTiles = tiles.Count;
 	}
 
 	private void GenerateTilingForLevel(){
 		// Determine the width of the tiles
 		// Random.Range is inclusive
+		Random.InitState(levelManager.randomSeed);
 		int tn = Random.Range(0,tiles.Count - 1);
 		GameObject t = tiles[tn];
 		tileWidth = t.GetComponent<Renderer>().bounds.size.x - 0.01f;
@@ -279,7 +287,7 @@ public class LevelLayer : MonoBehaviour {
 		for (int i = 0; i < levelSize; i++){
 			// Initialize the level by placing a random tile at position 0 and then build off of it.
 			if (i == 0){
-				int r = (int)Random.Range(0,numTiles);
+				int r = (int)Random.Range(0,numTiles-1);
 				levelLayout[i] = r;
 			} else if(i == levelSize - 1){
 				// The last tile should match the first tile and the tile before it
