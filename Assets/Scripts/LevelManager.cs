@@ -22,13 +22,17 @@ public class CameraFrameData : MonoBehaviour
 public class LevelManager : MonoBehaviour {
 	public int randomSeed;
 	private string levelType;
+	private string medialLayerType;
+	private string distalLayerType;
 	private List<GameObject> layers;
 	public GameObject player;
 	public Camera gameCamera;
 
 	// Use this for initialization
-	public void SetupLevel(string level){
-		levelType = level;
+	public void SetupLevel(string _levelType, string _medialLayerType, string _distalLayerType){
+		levelType = _levelType;
+		medialLayerType = _medialLayerType;
+		distalLayerType = _distalLayerType;
 
 		layers = new List<GameObject>();
 
@@ -47,7 +51,7 @@ public class LevelManager : MonoBehaviour {
 		LevelLayer ll    = go.AddComponent<LevelLayer>();
 		ll.levelManager  = this;
 		ll.gameCamera    = gameCamera;
-		ll.levelNumber   = level;
+		ll.levelNumberString = levelType;
 		ll.levelPart     = "grounds";
 		ll.yPosition     = 0.65f;
 		ll.sortLayerName = "Ground";
@@ -63,7 +67,7 @@ public class LevelManager : MonoBehaviour {
 		LevelLayer ll2    = go.AddComponent<LevelLayer>();
 		ll2.levelManager  = this;
 		ll2.gameCamera    = gameCamera;
-		ll2.levelNumber   = level;
+		ll2.levelNumberString   = levelType;
 		ll2.levelPart     = "backgrounds";
 		ll2.yPosition     = 4.5f;
 		ll2.sortLayerName = "BackgroundProximate";
@@ -78,7 +82,7 @@ public class LevelManager : MonoBehaviour {
 		LevelLayer ll3 = go3.AddComponent<LevelLayer>();
 		ll3.levelManager = this;
 		ll3.gameCamera   = gameCamera;
-		ll3.levelNumber  = "level_02";
+		ll3.levelNumberString  = medialLayerType;
 		ll3.levelPart    = "backgrounds";
 		ll3.yPosition    = 5.2f;
 		ll3.sortLayerName = "BackgroundMedial";
@@ -95,7 +99,7 @@ public class LevelManager : MonoBehaviour {
 		LevelLayer ll4 = go4.AddComponent<LevelLayer>();
 		ll4.levelManager = this;
 		ll4.gameCamera   = gameCamera;
-		ll4.levelNumber  = "level_02";
+		ll4.levelNumberString  = distalLayerType;
 		ll4.levelPart    = "backgrounds";
 		ll4.yPosition    = 5.3f;
 		ll4.sortLayerName = "BackgroundDistal";
@@ -117,7 +121,7 @@ public class LevelManager : MonoBehaviour {
 
 public class LevelLayer : MonoBehaviour {
 	public LevelManager levelManager;
-	public string levelNumber;
+	public string levelNumberString;
 	public string levelPart;
 	public float yPosition;
 	public string sortLayerName;
@@ -201,7 +205,7 @@ public class LevelLayer : MonoBehaviour {
 		activeTiles    = new Dictionary<int,GameObject>();
 		objectsNoLongerNeeded = new List<GameObject>();
 
-		string ground_resource_path = levelNumber + "/" + levelPart;
+		string ground_resource_path = levelNumberString + "/" + levelPart;
 		layerSprites = Resources.LoadAll(ground_resource_path, typeof(Sprite));
 
 		if (parallaxLayer){
@@ -216,12 +220,12 @@ public class LevelLayer : MonoBehaviour {
 	}
 
 	public void SetupGroundLayerResources() {
-		string ground_items_resource_path = levelNumber + "/ground_items";
+		string ground_items_resource_path = levelNumberString + "/ground_items";
 		layerSpecificDecorations = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
 	}
 
 	public void SetupBackgroundLayerResources() {
-		string ground_items_resource_path = levelNumber + "/background_items";
+		string ground_items_resource_path = levelNumberString + "/background_items";
 		layerSpecificDecorations = Resources.LoadAll(ground_items_resource_path, typeof(Sprite));
 	}
 
@@ -278,7 +282,7 @@ public class LevelLayer : MonoBehaviour {
 	private void GenerateTilingForLevel(){
 		// Determine the width of the tiles
 		// Random.Range is inclusive
-		Random.InitState(levelManager.randomSeed);
+		// Random.InitState(levelManager.randomSeed);
 		int tn = Random.Range(0,tiles.Count - 1);
 		GameObject t = tiles[tn];
 		tileWidth = t.GetComponent<Renderer>().bounds.size.x - 0.01f;
@@ -371,7 +375,7 @@ public class LevelLayer : MonoBehaviour {
 				int neededTileNumber = levelLayout[neededFrameNumber];
 				GameObject thistile  = tileLookup[neededTileNumber];
 				GameObject tilecopy  = Instantiate(thistile);
-				tilecopy.name        = levelNumber + " " + levelPart + " tile " + ii.ToString();
+				tilecopy.name        = levelNumberString + " " + levelPart + " tile " + ii.ToString();
 				tilecopy.AddComponent<CameraFrameData>();
 
 				CameraFrameData fd = tilecopy.GetComponent<CameraFrameData>();
@@ -399,7 +403,7 @@ public class LevelLayer : MonoBehaviour {
 				// If we are the ground layer, then create the ground items, based on the
 				// tile number as a seed.
 				if (sortLayerName == "Ground"){
-					Random.InitState(levelManager.randomSeed + ii);
+					// Random.InitState(levelManager.randomSeed + ii);
 					int numFront = (int)Random.Range(2,4);
 					int numBack  = (int)Random.Range(2,4);
 
@@ -408,9 +412,10 @@ public class LevelLayer : MonoBehaviour {
 				}
 
 				// If we are the Proximate Background layer, attempt to attach clouds.
-				Random.InitState(ii*ii);
+				//Random.InitState(ii*ii);
 				if (sortLayerName == "BackgroundProximate"){
-					if (Random.Range(0,100) > 60){
+					int somenum = Random.Range(0,100);
+					if (somenum > 60){
 						GameObject skyObjectPrefab = Resources.Load("SkyObject") as GameObject;
 						GameObject skyObject = Instantiate(skyObjectPrefab);
 						skyObject.transform.position = new Vector2 (tilecopy.transform.position.x,skyObject.transform.position.y);
@@ -418,19 +423,21 @@ public class LevelLayer : MonoBehaviour {
 						tilecopy.GetComponent<TileData>().attachedObjects.Add(skyObject);
 					}
 					int numBackgroundItems = (int)Random.Range(0,3);
+					//Random.InitState(ii*somenum);
 					addBackgroundDecorations(numBackgroundItems,"BackgroundProximate",tilecopy);
 				}
 				// Keep a dicionary of active tiles
 				activeTiles.Add(neededFrameNumber,tilecopy);
 
 				// Return the random seed to the one established in GameManager
-				Random.InitState(levelManager.randomSeed);
+				// Random.InitState(levelManager.randomSeed);
 			}
 		}
 	}
 
 	void addGroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
 		for (int x = 0; x < numDecorations; x++){
+			//Random.InitState(levelManager.randomSeed + x);
 			int idx = (int)(Random.Range(0,layerSpecificDecorations.Length+1) - 0.001);
 			
 			Sprite s = layerSpecificDecorations[idx] as Sprite;
@@ -449,6 +456,7 @@ public class LevelLayer : MonoBehaviour {
 
 	void addBackgroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
 		for (int x = 0; x < numDecorations; x++){
+			//Random.InitState(levelManager.randomSeed + x);
 			int idx = (int)(Random.Range(0,layerSpecificDecorations.Length+1) - 0.001);
 			
 			Sprite s = layerSpecificDecorations[idx] as Sprite;

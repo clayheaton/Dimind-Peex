@@ -6,18 +6,23 @@ public class GameManager : MonoBehaviour {
 	public Camera gameCamera;
 	private LevelManager levelScript;
 	public GameObject player;
+	public bool useRandomSeed;
 	public int randomSeed;
-	private string level = "level_02";
+	public string level = "level_01";
+	public string medialLayerType = "level_01";
+	public string distalLayerType = "level_02";
 	// Use this for initialization
 	void Awake () {
 		// Establish a random seed for repeatable levels
-		randomSeed = Random.Range(1,1000);
+		if (!useRandomSeed){
+			randomSeed = Random.Range(1,1000);
+		}
 		Random.InitState(randomSeed);
 
 		player = Instantiate(Resources.Load("player") as GameObject);
 		gameCamera = Instantiate(Resources.Load("cam",typeof(Camera)) as Camera);
 		CameraController cc = gameCamera.GetComponent<CameraController>();
-		cc.player   = player;
+		cc.player = player;
 		levelScript = GetComponent<LevelManager>();
 		levelScript.randomSeed = randomSeed;
 		levelScript.player = player;
@@ -26,7 +31,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void InitGame(){
-		levelScript.SetupLevel(level);
+		levelScript.SetupLevel(level,medialLayerType,distalLayerType);
 	}
 	
 	// Update is called once per frame

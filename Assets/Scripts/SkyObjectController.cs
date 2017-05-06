@@ -9,7 +9,7 @@ public class SkyObjectController : MonoBehaviour {
 	private float skyObjectSpeed;
 	private int direction = 1;
 	void Awake() {
-		levelNumber = "level_02";
+		levelNumber = "level_01";
 		levelPart   = "skies";
 		CreateSkyObject();
 	}
