@@ -14,6 +14,7 @@ tpsheetFileNames:
 - Assets/Resources/level_02/ground_items/mountains_ground_items.tpsheet
 - Assets/Resources/level_02/grounds/mountains_grounds.tpsheet
 - Assets/Resources/level_02/skies/mountains_clouds.tpsheet
+- Assets/Resources/shared/gem_pink.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
 - Assets/Resources/grounds/forest_ground.png
@@ -28,8 +29,10 @@ textureFileNames:
 - Assets/Resources/level_02/ground_items/mountains_ground_items.png
 - Assets/Resources/level_02/grounds/mountains_grounds.png
 - Assets/Resources/level_02/skies/mountains_clouds.png
+- Assets/Resources/shared/gem_pink.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
+- 
 - 
 - 
 - 

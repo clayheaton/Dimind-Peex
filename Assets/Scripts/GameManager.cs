@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 	void Awake () {
 		// Establish a random seed for repeatable levels
 		if (!useRandomSeed){
-			randomSeed = Random.Range(1,1000);
+			randomSeed = Random.Range(1,10000);
 		}
 		Random.InitState(randomSeed);
 

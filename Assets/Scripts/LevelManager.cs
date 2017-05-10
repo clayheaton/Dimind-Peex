@@ -81,10 +81,10 @@ public class LevelManager : MonoBehaviour {
 		GameObject go3 = new GameObject("Medial Background layer");
 		LevelLayer ll3 = go3.AddComponent<LevelLayer>();
 		ll3.levelManager = this;
-		ll3.gameCamera   = gameCamera;
-		ll3.levelNumberString  = medialLayerType;
-		ll3.levelPart    = "backgrounds";
-		ll3.yPosition    = 5.2f;
+		ll3.gameCamera = gameCamera;
+		ll3.levelNumberString = medialLayerType;
+		ll3.levelPart = "backgrounds";
+		ll3.yPosition = 5.2f;
 		ll3.sortLayerName = "BackgroundMedial";
 		ll3.needsCollider = false;
 		ll3.parallaxLayer = true;
@@ -98,10 +98,10 @@ public class LevelManager : MonoBehaviour {
 		GameObject go4 = new GameObject("Distal Background layer");
 		LevelLayer ll4 = go4.AddComponent<LevelLayer>();
 		ll4.levelManager = this;
-		ll4.gameCamera   = gameCamera;
-		ll4.levelNumberString  = distalLayerType;
-		ll4.levelPart    = "backgrounds";
-		ll4.yPosition    = 5.3f;
+		ll4.gameCamera = gameCamera;
+		ll4.levelNumberString = distalLayerType;
+		ll4.levelPart = "backgrounds";
+		ll4.yPosition = 5.3f;
 		ll4.sortLayerName = "BackgroundDistal";
 		ll4.needsCollider = false;
 		ll4.parallaxLayer = true;
@@ -409,10 +409,15 @@ public class LevelLayer : MonoBehaviour {
 
 					addGroundDecorations(numFront,"GroundFront",tilecopy);
 					addGroundDecorations(numBack, "GroundBack",tilecopy);
+
+					// TODO: Change gems so that they are only created once per tile. 
+					int numGems = (int)Random.Range(0,100);
+					if (numGems < 20){
+						addGems(1, "Ground", tilecopy);
+					}			
 				}
 
 				// If we are the Proximate Background layer, attempt to attach clouds.
-				//Random.InitState(ii*ii);
 				if (sortLayerName == "BackgroundProximate"){
 					int somenum = Random.Range(0,100);
 					if (somenum > 60){
@@ -428,16 +433,12 @@ public class LevelLayer : MonoBehaviour {
 				}
 				// Keep a dicionary of active tiles
 				activeTiles.Add(neededFrameNumber,tilecopy);
-
-				// Return the random seed to the one established in GameManager
-				// Random.InitState(levelManager.randomSeed);
 			}
 		}
 	}
 
 	void addGroundDecorations(int numDecorations, string displayLayer, GameObject referenceTile){
 		for (int x = 0; x < numDecorations; x++){
-			//Random.InitState(levelManager.randomSeed + x);
 			int idx = (int)(Random.Range(0,layerSpecificDecorations.Length+1) - 0.001);
 			
 			Sprite s = layerSpecificDecorations[idx] as Sprite;
@@ -451,6 +452,24 @@ public class LevelLayer : MonoBehaviour {
 
 			// This adds them to the deletion queue for when they no longer are near the player
 			objectsNoLongerNeeded.Add(decoration);
+		}
+	}
+
+	void addGems(int numDecorations, string displayLayer, GameObject referenceTile){
+		for (int x = 0; x < numDecorations; x++){
+
+			GameObject pickup = Resources.Load("Gem") as GameObject;
+			GameObject gem = Instantiate(pickup);
+			gem.name = "pink gem";
+			SpriteRenderer gem_sr = gem.GetComponent<SpriteRenderer>();
+			gem_sr.sortingLayerName = displayLayer;
+			gem_sr.sortingOrder = 10;
+
+			gem.transform.position = new Vector2(referenceTile.transform.position.x + Random.Range(-2,2), 
+			                                            referenceTile.transform.position.y + 1.0f);
+
+			// This adds them to the deletion queue for when they no longer are near the player
+			objectsNoLongerNeeded.Add(gem);
 		}
 	}
 

@@ -1,0 +1,19 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:6b6e4a2cf42831a40fbd76c832a6b684:9c13bb01e5f0c0a0011b8a3e466f4be9:9e968ec444dd9f605e1a5f28fc044a78$
+#
+:format=40300
+:texture=gem_pink.png
+:size=256x512
+:pivotpoints=enabled
+:borders=disabled
+
+gem_pink_00;1;357;125;154; 0.5;0.5; 0;0;0;0
+gem_pink_01;128;357;125;154; 0.5;0.5; 0;0;0;0
+gem_pink_02;1;201;125;154; 0.5;0.5; 0;0;0;0
+gem_pink_03;128;201;125;154; 0.5;0.5; 0;0;0;0
+gem_pink_04;1;45;125;154; 0.5;0.5; 0;0;0;0
